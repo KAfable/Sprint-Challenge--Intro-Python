@@ -64,8 +64,8 @@ print(f"len of {len(cities)}")
 #
 # Example I/O:
 #
-# Enter lat1,lon1: 45,-100
-# Enter lat2,lon2: 32,-120
+# Enter lat1,lon1: 45,-100 12025
+# Enter lat2,lon2: 32,-120 15424
 # Albuquerque: (35.1055,-106.6476)
 # Riverside: (33.9382,-117.3949)
 # San Diego: (32.8312,-117.1225)
@@ -80,8 +80,20 @@ print(f"len of {len(cities)}")
 
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
+    lower_lat = lat1
+    lower_lon = lon1
+    higher_lat = lat2
+    higher_lon = lon2
+    if lat2 < lat1:
+        lower_lat = lat2
+        higher_lat = lat1
+    if lon2 < lon1:
+        lower_lon = lon2
+        higher_lon = lon1
+
     # within will hold the cities that fall within the specified region
-    within = []
+    within = [c for c in cities if lower_lat <= c.lat <=
+              higher_lat and lower_lon <= c.lon <= higher_lon]
 
     # TODO Ensure that the lat and lon valuse are all floats
     # Go through each city and check to see if it falls within
